@@ -31,14 +31,12 @@ const EditBlog = () => {
       
       setTitle(data?.title);
       setDescription(data?.content);
-      setFile(data?.coverImg);
 
     } catch(e) {
       console.log(e);
     }
     
   }
-
 
   const handleSubmit = async (e) => {
 
