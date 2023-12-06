@@ -88,7 +88,7 @@ const SingleBlog = () => {
               <div className='flex mt-4'>
                 <div className="relative">
                   <img
-                    src={`${BASE_URL}/uploads/${blog?.author?.profileImg}`}
+                    src={blog?.author?.profileImg}
                     alt=""
                     className="w-12 h-12 object-contain rounded-full"
                   />
@@ -121,7 +121,7 @@ const SingleBlog = () => {
             </div>
   
             <div className='w-full flex justify-center'>
-              <img className='object-cover' src={blog ? `${BASE_URL}/uploads/${blog?.coverImg}` : ''} alt="Blog" />
+              <img className='object-cover' src={blog?.coverImg} alt="Blog" />
             </div>
   
             <div className='mt-4 p-2'>

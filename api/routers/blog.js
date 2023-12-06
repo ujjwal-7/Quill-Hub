@@ -107,7 +107,7 @@ router.get('/myBlogs/:id', checkForAthentication, async (req, res) => {
 
     try {
 
-        const blogs = await Blog.find({author: id}).exec();
+        const blogs = await Blog.find({author: id}).sort({createdAt: -1}).exec();
         res.status(200).json(blogs);
 
     } catch(e) {

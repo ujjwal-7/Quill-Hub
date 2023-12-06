@@ -110,7 +110,7 @@ const Profile = () => {
 
   return (
 
-
+    
     <div className='px-4 md:max-w-6xl md:m-auto'>
 
       {
@@ -122,7 +122,7 @@ const Profile = () => {
 
             <div className="relative">
               <img
-                src={`${BASE_URL}/uploads/${user?.profileImg}`}
+                src={user?.profileImg}
                 alt=""
                 className="w-24 h-24 object-contain rounded-full"
               />

@@ -6,6 +6,8 @@ import {MdEmail} from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { BASE_URL } from '../utils';
+import { storage } from '../firebase.config';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 const SignUp = () => {
 
@@ -60,26 +62,24 @@ const SignUp = () => {
         const newUser={
             email,
             name,
-            password
+            password,
         };
 
         if(selectedFile) {
 
-            const data=new FormData();
-            const filename=Date.now()+selectedFile.name;
-            data.append("img",filename);
-            data.append("file",selectedFile);
-            newUser.profileImg=filename;
+            const imageName = `${selectedFile.name}-${Date.now()}`;
+            const storageRef = ref(storage, imageName);
+            const uploadTask = uploadBytesResumable(storageRef, selectedFile);
 
-            try{
-                await fetch(`${BASE_URL}/api/upload`, {
-                    
-                    method: "POST",
-                    body: data
-                })
-            } catch(e){
-                console.log(e)
+            try {
+                await uploadTask;
+                const url = await getDownloadURL(uploadTask.snapshot.ref);
+                newUser.profileImg = url;
+            } catch (e) {
+                console.error(e);
+                return;
             }
+
         }
 
         try {

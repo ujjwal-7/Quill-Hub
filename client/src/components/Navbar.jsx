@@ -57,7 +57,7 @@ const Navbar = () => {
 
                 <div className="relative">
                     <img
-                      src={`${BASE_URL}/uploads/${user?.profileImg}`}
+                      src={user?.profileImg}
                       alt=""
                       className="w-10 h-10 object-contain rounded-full"
                     />

@@ -3,6 +3,8 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../utils';
+import { storage } from '../firebase.config';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 const CreateBlog = () => {
 
@@ -23,23 +25,17 @@ const CreateBlog = () => {
 
     if(file) {
 
-      const data=new FormData();
-      const filename=Date.now()+file.name;
-      data.append("img",filename);
-      data.append("file",file);
-      newBlog.coverImg=filename;
+      const imageName = `${file.name}-${Date.now()}`;
+      const storageRef = ref(storage, imageName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
       try {
-
-        const res = await fetch(`${BASE_URL}/api/upload`, {
-                    
-          method: "POST",
-          body: data
-        });
-
-
-      } catch(e) {
-        console.log(e);
+          await uploadTask;
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          newBlog.coverImg = url;
+      } catch (e) {
+          console.error(e);
+          return;
       }
 
     }

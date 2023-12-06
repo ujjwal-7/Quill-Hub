@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImg: {
         type: String,
-        default: '360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
+        default: 'https://firebasestorage.googleapis.com/v0/b/quillhub-88f01.appspot.com/o/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg?alt=media&token=b77c96ea-1638-4ab3-9131-ab67460cdb21'
     }
     
 },  { timestamps: true });
